@@ -1,0 +1,26 @@
+
+
+
+@keyframes strokeColor3 {
+  0% {
+    stroke: purple;
+    stroke-dashoffset: 100;
+    
+  }
+  50% {
+    stroke: rgb(232, 11, 240); 
+  }
+  100% {
+    stroke: #7bfc09; 
+    stroke-dashoffset: 0;
+    
+  }
+}
+.pin-animation {
+  animation: strokeColor3 2s infinite;
+  stroke-dasharray: 100;
+}
+
+
+
+
