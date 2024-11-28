@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 import { PlusCircle, Pin, PinOff, Edit2, Trash2, X } from "lucide-react";
+import { useCallback } from "react";
 import './App.css'; 
 
 
@@ -26,7 +27,7 @@ const App = () => {
     if (currentPage < Math.ceil(notes.length / notesPerPage)) {
       setCurrentPage(currentPage + 1);
     } else {
-      toast.success("No more pages to load!");
+      toast.success("No more pages to load");
     }
   };
 
@@ -34,7 +35,7 @@ const App = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     } else {
-      toast.success("You are already on the first page!");
+      toast.success("You are already on the first page");
     }
   };
 
@@ -48,17 +49,14 @@ const App = () => {
 
 
 
-  useEffect(() => {
-
-    fetchNotes();
-
-  }, [sortnote]);
-
-  const fetchNotes = async () => {
+  const fetchNotes = useCallback(async () => {
     const data = await getDocs(notesCollectionRef);
     setNotes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-
-  };
+  }, [notesCollectionRef]);
+  
+  useEffect(() => {
+    fetchNotes();
+  }, [sortnote, fetchNotes]);
 
   const addNote = async () => {
     if (title && body) {
